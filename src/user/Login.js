@@ -1,10 +1,89 @@
 import React, { Component } from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import { Link } from "react-router-dom";
+import { HashLoaderSpinner } from '../common/Spinner';
+
+import './User.css'
 
 export default class Login extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.stateInicial = {
+            email: '',
+            password: '',
+            loading: false
+        }
+        this.state = this.stateInicial;
+        this.loginUser = this.loginUser.bind(this);
+    }
+
+    inputListener = event => {
+
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        })
+    }
+
+    loginUser = e => {
+        this.setState({
+            loading: true,
+          });
+        e.preventDefault();
+    }
+
     render() {
+
+        const { email, password, loading } = this.state;
+
         return (
-            <div>
-                
+
+            <div className="user-background">
+                <Container>
+                    <Row>
+                        <Col xs={5} className="user-box">
+                            <div className="user-content">
+                                <Form>
+                                    <Form.Group controlId="formBasicEmail">
+                                        <Form.Label>Email address</Form.Label>
+                                        <Form.Control
+                                            type="email"
+                                            name="email"
+                                            value={email}
+                                            onChange={this.inputListener}
+                                            placeholder="Enter email" />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="formBasicPassword">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control
+                                            type="password"
+                                            value={password}
+                                            name="password"
+                                            onChange={this.inputListener}
+                                            placeholder="Password" />
+                                    </Form.Group>
+
+                                    <Form.Group controlId="formBasicChecbox">
+                                        <small><Link to={'/form'}>Sign up</Link> if you are not a member yet</small>
+                                    </Form.Group>
+
+                                    <Button variant="primary" type="submit" onClick={this.loginUser}>Login</Button>
+                                    
+                               </Form>
+                            </div>
+                        </Col>
+                        <Col>
+                            {loading ?<HashLoaderSpinner/> : null} 
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )
     }
