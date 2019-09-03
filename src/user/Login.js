@@ -16,7 +16,6 @@ const axios = require('axios');
 
 export default class Login extends Component {
     
-
     constructor(props) {
         super(props)
 
@@ -58,7 +57,6 @@ export default class Login extends Component {
                 loading: false,
             });
             toast.error("Apparently something went wrong");
-            
         });
     }
 
@@ -99,7 +97,6 @@ export default class Login extends Component {
                                     </Form.Group>
 
                                     <Button variant="primary" type="submit" onClick={this.loginUser}>Login</Button>
- <ToastContainer />
                                 </Form>
                             </div>
                         </Col>
