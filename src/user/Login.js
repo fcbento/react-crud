@@ -4,18 +4,18 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 import { HashLoaderSpinner } from '../common/spinner/Spinner';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import './User.css'
 
 const axios = require('axios');
-
+toast.configure();
 
 export default class Login extends Component {
-    
+
     constructor(props) {
         super(props)
 
@@ -36,10 +36,11 @@ export default class Login extends Component {
     }
 
     loginUser = e => {
-        
+
         this.setState({
             loading: true,
         });
+
         e.preventDefault();
 
         const url = 'http://localhost:8080/api/login'
@@ -47,16 +48,20 @@ export default class Login extends Component {
         axios.post(url, {
             data: this.state
         }).then((response) => {
+            Link.to('/home');
             if (response.data) {
                 this.setState({
                     loading: false,
                 });
+                this.props.history.push('/home');
             }
-        }).catch((error) => {
+
+        }).catch((err) => {
             this.setState({
                 loading: false,
             });
-            toast.error("Apparently something went wrong");
+            toast.error("Something went wrong !");
+            this.props.history.push('/home');
         });
     }
 
@@ -100,6 +105,7 @@ export default class Login extends Component {
                                 </Form>
                             </div>
                         </Col>
+
                         <Col>
                             {loading ? <HashLoaderSpinner /> : null}
                         </Col>

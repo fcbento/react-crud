@@ -1,0 +1,9 @@
+.sidenav{
+    background: #f7f7f7;
+    padding:20px;
+    font-weight: bold;
+}
+
+.sidenav span {
+    padding: 30px;
+}
