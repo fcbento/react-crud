@@ -5,11 +5,17 @@ import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { Link } from "react-router-dom";
-import { HashLoaderSpinner } from '../common/Spinner';
+import { HashLoaderSpinner } from '../common/spinner/Spinner';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import './User.css'
 
+const axios = require('axios');
+
+
 export default class Login extends Component {
+    
 
     constructor(props) {
         super(props)
@@ -20,7 +26,6 @@ export default class Login extends Component {
             loading: false
         }
         this.state = this.stateInicial;
-        this.loginUser = this.loginUser.bind(this);
     }
 
     inputListener = event => {
@@ -32,10 +37,29 @@ export default class Login extends Component {
     }
 
     loginUser = e => {
+        
         this.setState({
             loading: true,
-          });
+        });
         e.preventDefault();
+
+        const url = 'http://localhost:8080/api/login'
+
+        axios.post(url, {
+            data: this.state
+        }).then((response) => {
+            if (response.data) {
+                this.setState({
+                    loading: false,
+                });
+            }
+        }).catch((error) => {
+            this.setState({
+                loading: false,
+            });
+            toast.error("Apparently something went wrong");
+            
+        });
     }
 
     render() {
@@ -75,16 +99,16 @@ export default class Login extends Component {
                                     </Form.Group>
 
                                     <Button variant="primary" type="submit" onClick={this.loginUser}>Login</Button>
-                                    
-                               </Form>
+ <ToastContainer />
+                                </Form>
                             </div>
                         </Col>
                         <Col>
-                            {loading ?<HashLoaderSpinner/> : null} 
+                            {loading ? <HashLoaderSpinner /> : null}
                         </Col>
                     </Row>
                 </Container>
             </div>
-        )
+        );
     }
 }

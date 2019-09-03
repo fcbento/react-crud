@@ -4,7 +4,8 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import {Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { HashLoaderSpinner } from '../common/spinner/Spinner';
 import '../App.css';
 import './User.css'
 
@@ -19,7 +20,8 @@ export default class Formr extends Component {
             name: '',
             last_name: '',
             email: '',
-            password: ''
+            password: '',
+            loading: false
         }
 
         this.state = this.stateInicial;
@@ -34,23 +36,31 @@ export default class Formr extends Component {
     }
 
     saveUser = event => {
+        this.setState({
+            loading: true
+        });
         event.preventDefault();
         const url = 'http://localhost:8080/api/users'
 
         axios.post(url, {
             data: this.state
         }).then((response) => {
-            console.log(response.data);
+            if (response.data) {
+                this.setState({
+                    loading: false,
+                });
+            }
         }).catch((error) => {
-            console.log(error);
+            this.setState({
+                loading: false,
+            });
         });
 
-        this.setState(this.stateInicial);
-    }
+     }
 
     render() {
 
-        const { name, last_name, email, password } = this.state;
+        const { name, last_name, email, password, loading } = this.state;
 
         return (
             <div className="user-background">
@@ -103,7 +113,7 @@ export default class Formr extends Component {
                                     <Form.Group controlId="formBasicChecbox">
                                         <small><Link to={'/'}>Login</Link> if you are already a member</small>
                                     </Form.Group>
-                                    
+
                                     <Button
                                         variant="primary"
                                         type="submit"
@@ -112,6 +122,9 @@ export default class Formr extends Component {
                                 </Button>
                                 </Form>
                             </div>
+                        </Col>
+                        <Col>
+                            {loading ? <HashLoaderSpinner /> : null}
                         </Col>
                     </Row>
                 </Container>
