@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Sidenav from './Sidenav';
+import Sidenav from './sidenav/Sidenav';
 import Navbar from './nav/Navbar';
 import Info from './info/Info';
 import Container from 'react-bootstrap/Container'
@@ -21,8 +21,11 @@ export class Home extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={2}>
+                    <Col xs={3}>
                         <Sidenav />
+                    </Col>
+                    <Col xs={9}>
+                        
                     </Col>
                 </Row>
             </Container>
