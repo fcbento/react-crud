@@ -17,7 +17,7 @@ export class NavCenter extends Component {
                     <InputGroup.Prepend>
                         <InputGroup.Text id="inputGroup-sizing-sm">Large</InputGroup.Text>
                     </InputGroup.Prepend>
-                    <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" style={this.widthInput()}/>
+                    <FormControl aria-label="Small" aria-describedby="inputGroup-sizing-sm" style={this.widthInput()} />
                 </InputGroup>
             </div>
         )

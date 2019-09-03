@@ -18,17 +18,17 @@ export class Navbar extends Component {
 
     render() {
         return (
-                <Row style={this.getNavStyle()}>
-                    <Col xs={2}>
-                        <NavLeft />
-                    </Col>
-                    <Col xs={6}>
-                        <NavCenter />
-                    </Col>
-                    <Col xs={4}>
-                        <NavRight />
-                    </Col>
-                </Row>
+            <Row style={this.getNavStyle()}>
+                <Col xs={2}>
+                    <NavLeft />
+                </Col>
+                <Col xs={6}>
+                    <NavCenter />
+                </Col>
+                <Col xs={4}>
+                    <NavRight />
+                </Col>
+            </Row>
         )
     }
 }

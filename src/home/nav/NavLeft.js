@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Nav from 'react-bootstrap/Nav'
 
 export class NavLeft extends Component {
-    
+
     navLink = () => {
         return {
             color: 'white',
